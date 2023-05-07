@@ -70,37 +70,37 @@ detect_splicing("./Golfer_swing (1).jpg")
 ### Results:
 
 > ##### --- 1 ---
->> - 13.74049886662767
->> - 0.019286138156882567
->> - 0.26500115948626957
+>> - blockiness score:  13.74049886662767
+>> - edge score:  0.019286138156882567
+>> - combined score:  0.26500115948626957
 >> - The image is likely authentic.
 > ##### --- 2 ---
->> - 79.17019451935279
->> - 0.027724460659898476
->> - 2.1949509433883065
+>> - blockiness score:  79.17019451935279
+>> - edge score:  0.027724460659898476
+>> - combined score:  2.1949509433883065
 >> - The image may have been spliced.
 > ##### --- 3 ---
->> - 96.32394717261904
->> - 0.0429203869047619
->> - 4.134261080842656
+>> - blockiness score:  96.32394717261904
+>> - edge score:  0.0429203869047619
+>> - combined score:  4.134261080842656
 >> - The image may have been spliced.
 > ##### --- 4 ---
->> - 0.06900367647058823
->> - 196.66945055751174
->> - 13.570915137918888
+>> - blockiness score:  0.06900367647058823
+>> - edge score:  196.66945055751174
+>> - combined score:  13.570915137918888
 >> - The image may have been spliced.
 > ##### --- 5 ---
->> - 5.240933333333333
->> - 0.007404
->> - 0.0388038704
+>> - blockiness score:  5.240933333333333
+>> - edge score:  0.007404
+>> - combined score:  0.0388038704
 >> - The image is likely authentic.
 > ##### --- 6 ---
->> - 160.56043248935057
->> - 0.13191574839302111
->> - 21.180449614139825
+>> - blockiness score:  160.56043248935057
+>> - edge score:  0.13191574839302111
+>> - combined score:  21.180449614139825
 >> - The image may have been spliced.
 > ##### --- 7 ---
->> - 155.08857913095602
->> - 0.12834308999081726
->> - 19.90454746795227
+>> - blockiness score:  155.08857913095602
+>> - edge score:  0.12834308999081726
+>> - combined score:  19.90454746795227
 >> - The image may have been spliced.
