@@ -1,4 +1,4 @@
-'''
+```
 import cv2
 import numpy as np
 
@@ -169,4 +169,4 @@ print("--- 7 ---")
 detect_splicing("./Golfer_swing (1).jpg")
 print("--- 8 ---")
 detect_splicing("./car.jpg")
-'''
+```

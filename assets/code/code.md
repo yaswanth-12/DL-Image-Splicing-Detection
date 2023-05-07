@@ -51,8 +51,56 @@ def compute_edge_score(image, threshold1, threshold2):
     print(edge_score)
     return edge_score
 
-detect_splicing("../images/dog.jpg")
-detect_splicing("../images/dog.jfif")
-detect_splicing("../images/1.jpg")
-detect_splicing("../images/0_000000195755.tif")
+print("--- 1 ---")
+detect_splicing("./dog.jpg")
+print("--- 2 ---")
+detect_splicing("./14_000000281103.tif")
+print("--- 3 ---")
+detect_splicing("./108_000000560272.tif")
+print("--- 4 ---")
+detect_splicing("./0_000000195755.tif")
+print("--- 5 ---")
+detect_splicing("./dog.jfif")
+print("--- 6 ---")
+detect_splicing("./Golfer_swing.jpg")
+print("--- 7 ---")
+detect_splicing("./Golfer_swing (1).jpg")
 ```
+
+### Results:
+
+##### --- 1 ---
+13.74049886662767
+0.019286138156882567
+0.26500115948626957
+The image is likely authentic.
+##### --- 2 ---
+79.17019451935279
+0.027724460659898476
+2.1949509433883065
+The image may have been spliced.
+##### --- 3 ---
+96.32394717261904
+0.0429203869047619
+4.134261080842656
+The image may have been spliced.
+##### --- 4 ---
+196.66945055751174
+0.06900367647058823
+13.570915137918888
+The image may have been spliced.
+##### --- 5 ---
+5.240933333333333
+0.007404
+0.0388038704
+The image is likely authentic.
+##### --- 6 ---
+160.56043248935057
+0.13191574839302111
+21.180449614139825
+The image may have been spliced.
+##### --- 7 ---
+155.08857913095602
+0.12834308999081726
+19.90454746795227
+The image may have been spliced.
