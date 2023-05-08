@@ -27,6 +27,57 @@ def createLBPHistogram(gray_image, num_points, radius):
     return hist_norm
 
 
+def detect_splicing(image_path):
+    # Load the image
+    image = cv2.imread(image_path)
+
+    # Compute the blockiness score of the image
+    blockiness_score = compute_blockiness_score(image, block_size=2)
+
+    # Compute the edge score of the image
+    edge_score = compute_edge_score(image, threshold1=100, threshold2=200)
+
+    # Compute the lighting inconsistency score
+    lighting_score = compute_lighting_score(image)
+
+    # Compute the texture analysis score
+    texture_score = compute_texture_score(image)
+
+    print("blockiness score: ", blockiness_score)
+    print("edge score: ", edge_score)
+    print("lighting score: ", lighting_score)
+    print("texture score: ", texture_score)
+    # Combine the scores
+    combined_score = blockiness_score * edge_score * lighting_score * texture_score
+    print("combined score: ", combined_score)
+
+    # Check if the combined score is above a threshold
+    if combined_score > 0.5:
+        print("The image may have been spliced.")
+    else:
+        print("The image is likely authentic.")
+    print("\n")
+
+
+def compute_lighting_score(image):
+    # Convert the image to grayscale
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Apply a Gaussian blur to the image
+    blurred = cv2.GaussianBlur(gray, (15, 15), 0)
+
+    # Calculate the Laplacian of the blurred image
+    laplacian = cv2.Laplacian(blurred, cv2.CV_64F)
+
+    # Calculate the standard deviation of the Laplacian
+    std_dev = np.std(laplacian)
+    # print(std_dev)
+
+    # Calculate the lighting score
+    lighting_score = 1 / (1 + np.exp(-std_dev))
+    return lighting_score
+
+
 def compute_texture_score(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     lbp_hist = createLBPHistogram(gray, num_points=8, radius=1)
@@ -62,97 +113,6 @@ def compute_edge_score(image, threshold1, threshold2):
         edges) / float(edges.shape[0] * edges.shape[1])
     return edge_score
 
-
-def compute_lighting_score(image):
-    # Convert the image to grayscale
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    # Apply a Gaussian blur to the image
-    blurred = cv2.GaussianBlur(gray, (15, 15), 0)
-
-    # Calculate the Laplacian of the blurred image
-    laplacian = cv2.Laplacian(blurred, cv2.CV_64F)
-
-    # Calculate the standard deviation of the Laplacian
-    std_dev = np.std(laplacian)
-
-    # Calculate the lighting score
-    lighting_score = 1 / (1 + np.exp(-std_dev))
-    return lighting_score
-
-
-def compute_color_histogram_score(image):
-    # Calculate the color histogram of the image
-    hist = cv2.calcHist([image], [0, 1, 2], None, [
-                        8, 8, 8], [0, 256, 0, 256, 0, 256])
-
-    # Normalize the histogram
-    hist_norm = cv2.normalize(hist, None, alpha=0, beta=1,
-                              norm_type=cv2.NORM_MINMAX)
-
-    # Calculate the color histogram score
-    color_score = hist_norm.sum()
-    return color_score
-
-
-def compute_noise_score(image):
-    # Convert the image to grayscale
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # Calculate the difference between adjacent pixels in each direction
-    dx = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=3)
-    dy = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=3)
-
-    # Calculate the standard deviation of the differences
-    dx_std = np.std(dx)
-    dy_std = np.std(dy)
-
-    # Calculate the noise score
-    noise_score = 1 / (1 + np.exp(-(dx_std + dy_std)))
-    return noise_score
-
-
-def detect_splicing(image_path):
-    # Load the image
-    image = cv2.imread(image_path)
-    # Compute the blockiness score of the image
-    blockiness_score = compute_blockiness_score(image, block_size=2)
-
-    # Compute the edge score of the image
-    edge_score = compute_edge_score(image, threshold1=100, threshold2=200)
-
-    # Compute the lighting inconsistency score
-    lighting_score = compute_lighting_score(image)
-
-    # Compute the texture analysis score
-    texture_score = compute_texture_score(image)
-
-    # Compute the color histogram score
-    color_score = compute_color_histogram_score(image)
-
-    # Compute the noise score
-    noise_score = compute_noise_score(image)
-
-    # Combine the scores
-    combined_score = blockiness_score * edge_score * \
-        lighting_score * texture_score * color_score * noise_score
-
-    # Print the scores
-    print("blockiness score: ", blockiness_score)
-    print("edge score: ", edge_score)
-    print("lighting score: ", lighting_score)
-    print("texture score: ", texture_score)
-    print("color histogram score: ", color_score)
-    print("noise score: ", noise_score)
-    print("combined score: ", combined_score)
-
-    # Check if the combined score is above a threshold
-    if combined_score > 0.5:
-        print("The image may have been spliced.")
-    else:
-        print("The image is likely authentic.")
-    print("\n")
-
-
 print("--- 1 ---")
 detect_splicing("./dog.jpg")
 print("--- 2 ---")
@@ -168,7 +128,7 @@ detect_splicing("./Golfer_swing.jpg")
 print("--- 7 ---")
 detect_splicing("./Golfer_swing (1).jpg")
 print("--- 8 ---")
-detect_splicing("./car.jpg")
+detect_splicing("./landscape.jpg")
 ```
 
 ### Results:
